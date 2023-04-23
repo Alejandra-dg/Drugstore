@@ -28,7 +28,7 @@ namespace StoresG8.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public float Stock { get; set; }
 
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        public ICollection<Category>? ProductCategories { get; set; }
 
         [Display(Name = "Categorías")]
         public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
