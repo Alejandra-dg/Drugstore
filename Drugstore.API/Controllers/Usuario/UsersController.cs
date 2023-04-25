@@ -3,16 +3,16 @@ using Drugstore.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Drugstore.API.Controllers
+namespace Drugstore.API.Controllers.Usuario
 {
     [ApiController]
-    [Route("/api/roles")]
-    public class RolesController : ControllerBase
+    [Route("/api/users")]
+    public class UsersController : ControllerBase
     {
         private readonly DataContext _context;
 
 
-        public RolesController(DataContext context)
+        public UsersController(DataContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace Drugstore.API.Controllers
         public async Task<ActionResult> Get()
         {
 
-            return Ok(await _context.Roles.ToListAsync());
+            return Ok(await _context.Users.ToListAsync());
 
         }
 
@@ -34,13 +34,13 @@ namespace Drugstore.API.Controllers
         public async Task<ActionResult> Get(int id)
         {
 
-            var role = await _context.Roles.FirstOrDefaultAsync(x => x.role_id == id);
-            if (role is null)
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.user_id == id);
+            if (user is null)
             {
                 return NotFound(); //404
             }
 
-            return Ok(role);
+            return Ok(user);
 
         }
 
@@ -49,20 +49,20 @@ namespace Drugstore.API.Controllers
 
         // Método POST -- CREAR
         [HttpPost]
-        public async Task<ActionResult> Post(Role role)
+        public async Task<ActionResult> Post(User user)
         {
-            _context.Add(role);
+            _context.Add(user);
             try
             {
 
                 await _context.SaveChangesAsync();
-                return Ok(role);
+                return Ok(user);
             }
             catch (DbUpdateException dbUpdateException)
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe un rol con el mismo nombre.");
+                    return BadRequest("Ya existe un usuario con el mismo nombre.");
                 }
                 else
                 {
@@ -82,11 +82,11 @@ namespace Drugstore.API.Controllers
         //Método PUT --- UPDATE
 
         [HttpPut]
-        public async Task<ActionResult> Put(Role role)
+        public async Task<ActionResult> Put(User user)
         {
-            _context.Update(role);
+            _context.Update(user);
             await _context.SaveChangesAsync();
-            return Ok(role);
+            return Ok(user);
         }
 
 
@@ -95,8 +95,8 @@ namespace Drugstore.API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var afectedRows = await _context.Roles
-                .Where(x => x.role_id == id)
+            var afectedRows = await _context.Users
+                .Where(x => x.user_id == id)
                 .ExecuteDeleteAsync();
 
             if (afectedRows == 0)

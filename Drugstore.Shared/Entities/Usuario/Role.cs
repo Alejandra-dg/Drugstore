@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Drugstore.Shared.Entities
+namespace Drugstore.Shared.Entities.Usuario
 {
     public class Role
     {

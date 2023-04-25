@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StoresG8.Shared.Entities
+namespace Drugstore.Shared.Entities.Medicamento
 {
     public class Product
     {
@@ -28,20 +28,19 @@ namespace StoresG8.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public float Stock { get; set; }
 
-        public ICollection<Category>? ProductCategories { get; set; }
+        public ICollection<Category>? MedicineCategories { get; set; }
 
         [Display(Name = "Categorías")]
-        public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
-        /*
-        public ICollection<ProductImage>? ProductImages { get; set; }
-        
+        public int ProductCategoriesNumber => MedicineCategories == null ? 0 : MedicineCategories.Count;
+
+        public ICollection<MedicineImage>? MedicineImages { get; set; }
+
         [Display(Name = "Imágenes")]
-        public int ProductImagesNumber => ProductImages == null ? 0 : ProductImages.Count;
+        public int MedicineImagesNumber => MedicineImages == null ? 0 : MedicineImages.Count;
 
         [Display(Name = "Imagen")]
-        public string MainImage => ProductImages == null ? string.Empty : ProductImages.FirstOrDefault()!.Image;
+        public string MainImage => MedicineImages == null ? string.Empty : MedicineImages.FirstOrDefault()!.Image;
 
-        */
 
 
     }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StoresG8.Shared.Entities
+namespace Drugstore.Shared.Entities.Medicamento
 {
     public class Category
     {
@@ -13,10 +13,10 @@ namespace StoresG8.Shared.Entities
 
 
         /*
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        public ICollection<MedicineCategory>? MedicineCategories { get; set; }
 
-        [Display(Name = "Productos")]
-        public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
+        [Display(Name = "Medicamentos")]
+        public int MedicineCategoriesNumber => MedicineCategories == null ? 0 : MedicineCategories.Count;
         */
     }
 }

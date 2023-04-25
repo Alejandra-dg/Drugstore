@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Drugstore.API.Controllers
+namespace Drugstore.API.Controllers.Venta
 {
     [ApiController]
     [Route("/api/medicalorder")]
