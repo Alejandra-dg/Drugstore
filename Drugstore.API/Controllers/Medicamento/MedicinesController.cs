@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using Drugstore.API.Helpers;
+﻿using Drugstore.API.Date;
 using Drugstore.Shared.DTOs;
-using Drugstore.Shared.Entities;
-using Drugstore.API.Date;
 using Drugstore.Shared.Entities.Medicamento;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace Drugstore.API.Controllers
+namespace Drugstore.API.Controllers.Medicamento
 {
 
     [ApiController]
-    [Route("/api/categories")]
-    public class CategoriesController : ControllerBase
+    [Route("/api/medicines")]
+    public class MedicinesController : ControllerBase
     {
         private readonly DataContext _context;
 
 
-        public CategoriesController(DataContext context)
+        public MedicinesController(DataContext context)
         {
             _context = context;
         }
@@ -28,20 +26,20 @@ namespace Drugstore.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
-            var queryable = _context.Categories
-            
+            var queryable = _context.Medicines
+
                 .AsQueryable();
 
 
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.category_name.ToLower().Contains(pagination.Filter.ToLower()));
+                queryable = queryable.Where(x => x.medicine_name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
 
             return Ok(await queryable
-                .OrderBy(x => x.category_name)
+                .OrderBy(x => x.medicine_name)
                 .Paginate(pagination)
                 .ToListAsync());
         }
