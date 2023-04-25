@@ -1,5 +1,6 @@
 ﻿using Drugstore.API.Date;
 using Drugstore.Shared.Entities;
+using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

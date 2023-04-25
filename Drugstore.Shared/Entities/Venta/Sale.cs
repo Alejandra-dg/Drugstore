@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Drugstore.Shared.Entities.Venta
 {
-    internal class Sale
+    public class Sale
     {
+        public int sale_id { get; set; }
     }
 }
