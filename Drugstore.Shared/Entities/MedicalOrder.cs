@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Drugstore.Shared.Entities
 {
-    internal class MedicalOrder
+    public class MedicalOrder
     {
+        [Display(Name = "Orden Id")]
+        [Key]
+        public int order_id { get; set; }
     }
 }
