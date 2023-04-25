@@ -12,11 +12,11 @@ namespace StoresG8.Shared.Entities
         public string Name { get; set; } = null!;
 
 
-
+        /*
         public ICollection<ProductCategory>? ProductCategories { get; set; }
 
         [Display(Name = "Productos")]
         public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
-
+        */
     }
 }

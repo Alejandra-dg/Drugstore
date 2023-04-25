@@ -32,15 +32,16 @@ namespace StoresG8.Shared.Entities
 
         [Display(Name = "Categorías")]
         public int ProductCategoriesNumber => ProductCategories == null ? 0 : ProductCategories.Count;
-
+        /*
         public ICollection<ProductImage>? ProductImages { get; set; }
-
+        
         [Display(Name = "Imágenes")]
         public int ProductImagesNumber => ProductImages == null ? 0 : ProductImages.Count;
 
-        [Display(Name = "Imagén")]
+        [Display(Name = "Imagen")]
         public string MainImage => ProductImages == null ? string.Empty : ProductImages.FirstOrDefault()!.Image;
 
+        */
 
 
     }
