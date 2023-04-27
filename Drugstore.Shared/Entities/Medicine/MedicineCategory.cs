@@ -1,4 +1,4 @@
-﻿using Drugstore.Shared.Entities.Usuario;
+﻿//using Drugstore.Shared.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

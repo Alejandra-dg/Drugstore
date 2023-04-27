@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Drugstore.Shared.Entities.Medicamento;
 
-namespace Drugstore.Shared.Entities.Medicamento
+// CREACIÓN DE PRODUCTOS
+namespace Drugstore.Shared.Entities.Medicine
 {
     public class Product
     {
