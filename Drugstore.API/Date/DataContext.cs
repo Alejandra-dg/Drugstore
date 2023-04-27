@@ -35,8 +35,11 @@ namespace Drugstore.API.Date
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>().HasIndex(x => x.category_name).IsUnique();
-            modelBuilder.Entity<Medicine>().HasIndex(x => x.medicine_name).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<Medicine>().HasIndex("CategoryId","Name").IsUnique();
+            modelBuilder.Entity<MedicineCategory>().HasIndex("MedicineId", "Name").IsUnique();
+            //ORENES
+
             modelBuilder.Entity<MedicalOrder>().HasIndex(x => x.order_id).IsUnique();
             //MedicineImagne, cómo sería? 
             modelBuilder.Entity<Sale>().HasIndex(x => x.sale_id).IsUnique();

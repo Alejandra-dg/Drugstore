@@ -1,9 +1,10 @@
 ﻿using Drugstore.API.Date;
+using Drugstore.API.Helpers;
 using Drugstore.Shared.DTOs;
 using Drugstore.Shared.Entities.Medicamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+
 
 namespace Drugstore.API.Controllers.Medicamento
 {
@@ -27,7 +28,7 @@ namespace Drugstore.API.Controllers.Medicamento
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var queryable = _context.Medicines
-
+                .Include(x=> x.MedicinesCategories)
                 .AsQueryable();
 
 
@@ -48,6 +49,7 @@ namespace Drugstore.API.Controllers.Medicamento
         public async Task<ActionResult> GetFull()
         {
             return Ok(await _context.Categories
+                .Include(x => x.MedicinesCategories)
                 .ToListAsync());
         }
 
@@ -80,7 +82,10 @@ namespace Drugstore.API.Controllers.Medicamento
         {
 
             var category = await _context.Categories
+
+            .Include(x => x.MedicinesCategories)
             .FirstOrDefaultAsync(x => x.category_id == id);
+          
             if (category is null)
             {
                 return NotFound(); //404

@@ -29,19 +29,19 @@ namespace Drugstore.API.Controllers
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var queryable = _context.Categories
-            
+                .Include(x=> x.Medicines)
                 .AsQueryable();
 
 
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.category_name.ToLower().Contains(pagination.Filter.ToLower()));
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
 
             return Ok(await queryable
-                .OrderBy(x => x.category_name)
+                .OrderBy(x => x.Name)
                 .Paginate(pagination)
                 .ToListAsync());
         }
@@ -63,7 +63,7 @@ namespace Drugstore.API.Controllers
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.category_name.ToLower().Contains(pagination.Filter.ToLower()));
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
             double count = await queryable.CountAsync();
@@ -82,7 +82,9 @@ namespace Drugstore.API.Controllers
         {
 
             var category = await _context.Categories
-            .FirstOrDefaultAsync(x => x.category_id == id);
+            .Include(x=> x.Medicines)
+            .Include(x => x.MedicinesCategories)
+            .FirstOrDefaultAsync(x => x.Id == id);
             if (category is null)
             {
                 return NotFound(); //404
@@ -110,7 +112,7 @@ namespace Drugstore.API.Controllers
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe un medicamento con el mismo nombre.");
+                    return BadRequest("Ya existe una categoria con el mismo nombre.");
                 }
                 else
                 {
@@ -167,7 +169,7 @@ namespace Drugstore.API.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var afectedRows = await _context.Categories
-                .Where(a => a.category_id == id)
+                .Where(a => a.Id == id)
 
                 .ExecuteDeleteAsync();
 
