@@ -102,7 +102,7 @@ namespace Drugstore.API.Controllers.Medicamento
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe una medicina con esa categorias con el mismo nombre.");
+                    return BadRequest("Ya existe una medicina con el mismo nombre.");
                 }
 
                 return BadRequest(dbUpdateException.Message);
@@ -140,13 +140,13 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var city = await _context.MedicineCategories.FirstOrDefaultAsync(x => x.Id == id);
-            if (city == null)
+            var medicineCategory = await _context.MedicineCategories.FirstOrDefaultAsync(x => x.Id == id);
+            if (medicineCategory == null)
             {
                 return NotFound();
             }
 
-            _context.Remove(MedicineCategory);
+            _context.Remove(medicineCategory);
             await _context.SaveChangesAsync();
             return NoContent();
         }
