@@ -1,5 +1,7 @@
 ﻿using Drugstore.API.Date;
+using Drugstore.API.Helpers;
 using Drugstore.Shared.DTOs;
+using Drugstore.Shared.Entities.Medicamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,13 +27,13 @@ namespace Drugstore.API.Controllers.Medicamento
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                queryable = queryable.Where(x => x.MedicineCategory_name.ToLower().Contains
+                queryable = queryable.Where(x => x.Name.ToLower().Contains
                 (pagination.Filter.ToLower()));
             }
 
-            if (!string.IsNullOrWhiteSpace(pagination.Medicine))
+            if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
             {
-                queryable = queryable.Where(x => x.medicine_Id == int.Parse(pagination.StateId));
+                queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
             }
 
             return Ok(await queryable
@@ -45,16 +47,16 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpGet("totalPages")] // Contar numeros de paginas 
         public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
         {
-            var queryable = _context.Cities.AsQueryable();
+            var queryable = _context.MedicineCategories.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
-            if (!string.IsNullOrWhiteSpace(pagination.StateId))
+            if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
             {
-                queryable = queryable.Where(x => x.StateId == int.Parse(pagination.StateId));
+                queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
             }
 
             double count = await queryable.CountAsync();
@@ -68,7 +70,7 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpGet("full")]
         public async Task<ActionResult> GetFull()
         {
-            return Ok(await _context.Cities
+            return Ok(await _context.MedicineCategories
                 .ToListAsync());
         }
 
@@ -77,7 +79,7 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var city = await _context.Cities
+            var city = await _context.MedicineCategories
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (city == null)
             {
@@ -88,19 +90,19 @@ namespace Drugstore.API.Controllers.Medicamento
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(City city)
+        public async Task<ActionResult> PostAsync(MedicineCategory medicineCategory)
         {
             try
             {
-                _context.Add(city);
+                _context.Add(medicineCategory);
                 await _context.SaveChangesAsync();
-                return Ok(city);
+                return Ok(medicineCategory);
             }
             catch (DbUpdateException dbUpdateException)
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe una ciudad con el mismo nombre.");
+                    return BadRequest("Ya existe una medicina con esa categorias con el mismo nombre.");
                 }
 
                 return BadRequest(dbUpdateException.Message);
@@ -112,19 +114,19 @@ namespace Drugstore.API.Controllers.Medicamento
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutAsync(City city)
+        public async Task<ActionResult> PutAsync(MedicineCategory medicineCategory)
         {
             try
             {
-                _context.Update(city);
+                _context.Update(medicineCategory);
                 await _context.SaveChangesAsync();
-                return Ok(city);
+                return Ok(medicineCategory);
             }
             catch (DbUpdateException dbUpdateException)
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe una ciudad con el mismo nombre.");
+                    return BadRequest("Ya existe una medicina  con el mismo nombre.");
                 }
 
                 return BadRequest(dbUpdateException.Message);
@@ -138,13 +140,13 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var city = await _context.Cities.FirstOrDefaultAsync(x => x.Id == id);
+            var city = await _context.MedicineCategories.FirstOrDefaultAsync(x => x.Id == id);
             if (city == null)
             {
                 return NotFound();
             }
 
-            _context.Remove(city);
+            _context.Remove(MedicineCategory);
             await _context.SaveChangesAsync();
             return NoContent();
         }
