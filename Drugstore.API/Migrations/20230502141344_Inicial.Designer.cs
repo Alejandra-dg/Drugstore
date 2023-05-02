@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Drugstore.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230501221352_DrugstoresMigration")]
-    partial class DrugstoresMigration
+    [Migration("20230502141344_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,30 +93,7 @@ namespace Drugstore.API.Migrations
                     b.ToTable("MedicineCategories");
                 });
 
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCategories");
-                });
-
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.ProductImage", b =>
+            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.MedicineImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,46 +105,17 @@ namespace Drugstore.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("MedicineId");
 
-                    b.ToTable("ProductImages");
-                });
-
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicine.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<float>("Stock")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Products");
+                    b.ToTable("MedicineImages");
                 });
 
             modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.Medicine", b =>
@@ -192,34 +140,15 @@ namespace Drugstore.API.Migrations
                     b.Navigation("Medicine");
                 });
 
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.ProductCategory", b =>
+            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.MedicineImage", b =>
                 {
-                    b.HasOne("Drugstore.Shared.Entities.Medicamento.Category", "Category")
+                    b.HasOne("Drugstore.Shared.Entities.Medicamento.Medicine", "Medicine")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Drugstore.Shared.Entities.Medicine.Product", "Product")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.ProductImage", b =>
-                {
-                    b.HasOne("Drugstore.Shared.Entities.Medicine.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
+                    b.Navigation("Medicine");
                 });
 
             modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.Category", b =>
@@ -230,13 +159,6 @@ namespace Drugstore.API.Migrations
             modelBuilder.Entity("Drugstore.Shared.Entities.Medicamento.Medicine", b =>
                 {
                     b.Navigation("MedicinesCategories");
-                });
-
-            modelBuilder.Entity("Drugstore.Shared.Entities.Medicine.Product", b =>
-                {
-                    b.Navigation("ProductCategories");
-
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

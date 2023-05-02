@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Drugstore.Shared.Entities.Medicine;
 
 namespace Drugstore.Shared.Entities.Medicamento
 {
-    public class ProductImage
+    public class MedicineImage
     {
         public int Id { get; set; }
 
-        public Product Product { get; set; } = null!;
+        public Medicine Medicine { get; set; } = null!;
 
         public int ProductId { get; set; }
 
