@@ -1,4 +1,7 @@
 using Drugstore.API.Date;
+using Drugstore.API.Helpers;
+using Drugstore.Shared.Entities.Usuario;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,23 @@ builder.Services.AddSwaggerGen();
 
 //Inyección de dependencias del servicio SQl Server
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
+
+builder.Services.AddScoped<IApiService, ApiService>();
+
+builder.Services.AddIdentity<User, IdentityRole>(x =>
+{
+    x.User.RequireUniqueEmail = true;
+    x.Password.RequireDigit = false;
+    x.Password.RequiredUniqueChars = 0;
+    x.Password.RequireLowercase = false;
+    x.Password.RequireNonAlphanumeric = false;
+    x.Password.RequireUppercase = false;
+})
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddScoped<IUserHelper, UserHelper>();
 
 
 var app = builder.Build();
