@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Drugstore.Shared.Entities;
 using Drugstore.Shared.Entities.Medicamento;
 using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-//using Drugstore.Shared.Entities.Usuario;
 //using Drugstore.Shared.Entities.Venta;
 
 

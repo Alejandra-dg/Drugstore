@@ -1,3 +1,4 @@
+using Drugstore.API.Data;
 using Drugstore.API.Date;
 using Drugstore.API.Helpers;
 using Drugstore.Shared.Entities.Usuario;
@@ -16,7 +17,10 @@ builder.Services.AddSwaggerGen();
 //Inyección de dependencias del servicio SQl Server
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
 
+builder.Services.AddTransient<SeedDb>();
 
+// Esto solo se utiliza en caso de una api externa 
+//builder.Services.AddScoped<IApiService, ApiService>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -32,9 +36,6 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 
 
 //builder.Services.AddScoped<IUserHelper, UserHelper>();
-
-
-
 
 
 var app = builder.Build();
