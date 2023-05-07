@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 //Inyección de dependencias del servicio SQl Server
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultConnection"));
 
-builder.Services.AddScoped<IApiService, ApiService>();
+
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -31,7 +31,10 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     .AddDefaultTokenProviders();
 
 
-builder.Services.AddScoped<IUserHelper, UserHelper>();
+//builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+
+
 
 
 var app = builder.Build();
