@@ -4,7 +4,7 @@ namespace Drugstore.Shared.Entities.Medicamento
 {
     public class Category
     {
-        public object MedicinesCategories;
+        public object? MedicinesCategories;
 
         public int Id { get; set; }
 

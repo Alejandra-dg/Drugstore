@@ -57,7 +57,7 @@ namespace Drugstore.API.Controllers
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var queryable = _context.Categories
-                .Include(x=> x.Medicines)
+                .Include(x => x.Medicines)
                 .AsQueryable();
 
 
@@ -102,7 +102,7 @@ namespace Drugstore.API.Controllers
         }
 
 
-        
+
 
 
 
@@ -115,7 +115,7 @@ namespace Drugstore.API.Controllers
         {
 
             var category = await _context.Categories
-            .Include(x=> x.Medicines)
+            .Include(x => x.Medicines)
             .Include(x => x.MedicinesCategories)
             .FirstOrDefaultAsync(x => x.Id == id);
             if (category is null)
@@ -126,13 +126,6 @@ namespace Drugstore.API.Controllers
             return Ok(category);
 
         }
-
-
-
-
-       
-
-
 
 
 
