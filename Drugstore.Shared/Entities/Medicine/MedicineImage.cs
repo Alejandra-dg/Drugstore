@@ -14,7 +14,7 @@ namespace Drugstore.Shared.Entities.Medicamento
 
         public Medicine Medicine { get; set; } = null!;
 
-        public int ProductId { get; set; }
+        public int MedicineId { get; set; }
 
         [Display(Name = "Imagen")]
         public string Image { get; set; } = null!;
