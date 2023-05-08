@@ -7,24 +7,39 @@ namespace Drugstore.Shared.Entities.Medicamento
     {
         public int Id { get; set; }
 
-        [Display(Name = "Medicamentos")]
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [Display(Name = "Nombre")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Name { get; set; } = null!;
 
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Descripción")]
+        [MaxLength(500, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string Description { get; set; } = null!;
 
-        public ICollection<MedicineCategory>? MedicinesCategories{ get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [Display(Name = "Precio")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public decimal Price { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
+        [Display(Name = "Inventario")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public float Stock { get; set; }
 
+        public ICollection<MedicineCategory>? MedicineCategories { get; set; }
 
-        public int CategoryId { get; set; }
+        [Display(Name = "Categorías")]
+        public int MedicinesCategoriesNumber => MedicineCategories  == null ? 0 : MedicineCategories.Count;
 
-        public Category? Category { get; set; }
+        public ICollection<MedicineImage>? MedicineImages { get; set; }
 
-      
+        [Display(Name = "Imágenes")]
+        public int MedicineImagesNumber => MedicineImages == null ? 0 : MedicineImages.Count;
 
-        [Display(Name = "Categorias/Medicinas")]
-        public int MedicinesCategoriesNumber => MedicinesCategories == null ? 0 : MedicinesCategories.Count;
+        [Display(Name = "Imagén")]
+        public string MainImage => MedicineImages == null ? string.Empty : MedicineImages.FirstOrDefault()!.Image;
 
     }
 }

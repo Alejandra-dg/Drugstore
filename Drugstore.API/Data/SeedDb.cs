@@ -19,7 +19,6 @@ namespace Drugstore.API.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            //await CheckCountriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("123", "admin", "super", "oap@yopmail.com", "300666666", "Cualquier cosa", UserType.Admin);
 
