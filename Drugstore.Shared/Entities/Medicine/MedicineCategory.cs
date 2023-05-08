@@ -1,21 +1,13 @@
-﻿//using Drugstore.Shared.Entities.Usuario;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Drugstore.Shared.Entities;
+using Drugstore.Shared.Entities.Medicamento;
 
-namespace Drugstore.Shared.Entities.Medicamento
+namespace Drugstore.Shared.Entities
 {
     public class MedicineCategory
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = null!;
-
-        public Medicine? Medicine { get; set; }
+        public Medicine Medicine { get; set; } = null!;
 
         public int MedicineId { get; set; }
 
