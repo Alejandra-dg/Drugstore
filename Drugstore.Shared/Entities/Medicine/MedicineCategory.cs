@@ -13,14 +13,14 @@ namespace Drugstore.Shared.Entities.Medicamento
     {
         public int Id { get; set; }
 
-        [Display(Name = "Medicinas/Categories")]
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Name { get; set; } = null!;
+
+        public Medicine? Medicine { get; set; }
 
         public int MedicineId { get; set; }
 
+        public Category Category { get; set; } = null!;
 
-        public Medicine? Medicine { get; set; }
+        public int CategoryId { get; set; }
     }
 }
