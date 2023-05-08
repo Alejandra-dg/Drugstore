@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using Drugstore.API.Helpers;
 using Drugstore.Shared.DTOs;
-using Drugstore.Shared.Entities;
 using Drugstore.API.Date;
 using Drugstore.Shared.Entities.Medicamento;
 
@@ -57,7 +55,6 @@ namespace Drugstore.API.Controllers
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var queryable = _context.Categories
-                .Include(x => x.Medicines)
                 .AsQueryable();
 
 
@@ -73,6 +70,7 @@ namespace Drugstore.API.Controllers
                 .Paginate(pagination)
                 .ToListAsync());
         }
+
 
         [HttpGet("totalPages")]
         public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
@@ -115,8 +113,6 @@ namespace Drugstore.API.Controllers
         {
 
             var category = await _context.Categories
-            .Include(x => x.Medicines)
-            .Include(x => x.MedicinesCategories)
             .FirstOrDefaultAsync(x => x.Id == id);
             if (category is null)
             {
