@@ -1,4 +1,4 @@
-﻿using Drugstore.Shared.Entities;
+﻿
 using Drugstore.Shared.Entities.Medicamento;
 
 namespace Drugstore.Shared.Entities
@@ -7,6 +7,8 @@ namespace Drugstore.Shared.Entities
     {
         public int Id { get; set; }
 
+        //public string Name { get; set; }    //temporal
+  
         public Medicine Medicine { get; set; } = null!;
 
         public int MedicineId { get; set; }

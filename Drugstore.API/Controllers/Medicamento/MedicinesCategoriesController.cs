@@ -1,6 +1,7 @@
 ﻿using Drugstore.API.Date;
 using Drugstore.API.Helpers;
 using Drugstore.Shared.DTOs;
+using Drugstore.Shared.Entities;
 using Drugstore.Shared.Entities.Medicamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,51 +19,51 @@ namespace Drugstore.API.Controllers.Medicamento
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
-        {
-            var queryable = _context.MedicineCategories // RECORRIDO DE PAGINAS DE 1 A 10
-                .AsQueryable();
+        //[HttpGet]
+        //public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+        //{
+        //    var queryable = _context.MedicineCategories // RECORRIDO DE PAGINAS DE 1 A 10
+        //        .AsQueryable();
 
 
-            if (!string.IsNullOrWhiteSpace(pagination.Filter))
-            {
-                queryable = queryable.Where(x => x.Name.ToLower().Contains
-                (pagination.Filter.ToLower()));
-            }
+        //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        //    {
+        //        queryable = queryable.Where(x => x.Name.ToLower().Contains
+        //        (pagination.Filter.ToLower()));
+        //    }
 
-            if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
-            {
-                queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
-            }
+        //    if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
+        //    {
+        //        queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
+        //    }
 
-            return Ok(await queryable
-                .OrderBy(x => x.Name)
-                .Paginate(pagination)
-                .ToListAsync());
-        }
+        //    return Ok(await queryable
+        //        .OrderBy(x => x.Name)
+        //        .Paginate(pagination)
+        //        .ToListAsync());
+        //}
 
 
 
-        [HttpGet("totalPages")] // Contar numeros de paginas 
-        public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
-        {
-            var queryable = _context.MedicineCategories.AsQueryable();
+        //[HttpGet("totalPages")] // Contar numeros de paginas 
+        //public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
+        //{
+        //    var queryable = _context.MedicineCategories.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(pagination.Filter))
-            {
-                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
-            }
+        //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        //    {
+        //        queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        //    }
 
-            if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
-            {
-                queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
-            }
+        //    if (!string.IsNullOrWhiteSpace(pagination.MedicineId))
+        //    {
+        //        queryable = queryable.Where(x => x.MedicineId == int.Parse(pagination.MedicineId));
+        //    }
 
-            double count = await queryable.CountAsync();
-            double totalPages = Math.Ceiling(count / pagination.RecordsNumber);
-            return Ok(totalPages);
-        }
+        //    double count = await queryable.CountAsync();
+        //    double totalPages = Math.Ceiling(count / pagination.RecordsNumber);
+        //    return Ok(totalPages);
+        //}
 
 
 

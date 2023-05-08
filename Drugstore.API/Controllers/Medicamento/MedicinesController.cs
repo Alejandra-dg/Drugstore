@@ -28,7 +28,7 @@ namespace Drugstore.API.Controllers.Medicamento
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var queryable = _context.Medicines
-                .Include(x=> x.MedicinesCategories)
+                //.Include(x => x.MedicinesCategories)
                 .AsQueryable();
 
 
@@ -49,7 +49,7 @@ namespace Drugstore.API.Controllers.Medicamento
         public async Task<ActionResult> GetFull()
         {
             return Ok(await _context.Categories
-                .Include(x => x.MedicinesCategories)
+               // .Include(x => x.MedicinesCategories)
                 .ToListAsync());
         }
 
@@ -57,7 +57,7 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpGet("totalPages")]
         public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
         {
-            var queryable = _context.Categories.AsQueryable();
+            var queryable = _context.Medicines.AsQueryable();
 
 
 
@@ -75,23 +75,23 @@ namespace Drugstore.API.Controllers.Medicamento
 
 
 
-        //´Método GET con parámetro
+        //Método GET con parámetro
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
 
-            var category = await _context.Categories
+            var medicine = await _context.Medicines
 
-            .Include(x => x.MedicinesCategories)
+            //.include(x => x.medicinescategories)
             .FirstOrDefaultAsync(x => x.Id == id);
-          
-            if (category is null)
+
+            if (medicine is null)
             {
                 return NotFound(); //404
             }
 
-            return Ok(category);
+            return Ok(medicine);
 
         }
 
@@ -100,14 +100,14 @@ namespace Drugstore.API.Controllers.Medicamento
 
         // Método POST -- CREAR
         [HttpPost]
-        public async Task<ActionResult> Post(Category category)
+        public async Task<ActionResult> Post(Medicine medicine)
         {
-            _context.Add(category);
+            _context.Add(medicine);
             try
             {
 
                 await _context.SaveChangesAsync();
-                return Ok(category);
+                return Ok(medicine);
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -133,24 +133,24 @@ namespace Drugstore.API.Controllers.Medicamento
         //Método PUT --- UPDATE
 
         [HttpPut]
-        public async Task<ActionResult> Put(Category category)
+        public async Task<ActionResult> Put(Medicine medicine)
         {
 
             try
             {
 
-                _context.Update(category);
+                _context.Update(medicine);
                 await _context.SaveChangesAsync();
 
 
-                return Ok(category);
+                return Ok(medicine);
 
             }
             catch (DbUpdateException dbUpdateException)
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe un registro con el mismo nombre.");
+                    return BadRequest("Ya existe un medicamento con el mismo nombre.");
                 }
                 else
                 {
@@ -169,7 +169,7 @@ namespace Drugstore.API.Controllers.Medicamento
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var afectedRows = await _context.Categories
+            var afectedRows = await _context.Medicines
                 .Where(a => a.Id == id)
 
                 .ExecuteDeleteAsync();

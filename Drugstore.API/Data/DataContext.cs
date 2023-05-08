@@ -2,12 +2,13 @@
 using Drugstore.Shared.Entities.Medicamento;
 using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Drugstore.Shared.Entities;
 //using Drugstore.Shared.Entities.Venta;
 
 
 namespace Drugstore.API.Date
 {
-    public class DataContext : IdentityDbContext<User>
+    public class DataContext : DbContext
     {
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -42,19 +43,16 @@ namespace Drugstore.API.Date
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
-            modelBuilder.Entity<Medicine>().HasIndex("CategoryId","Name").IsUnique();
-            modelBuilder.Entity<MedicineCategory>().HasIndex("MedicineId", "Name").IsUnique();
-        
+            modelBuilder.Entity<Medicine>().HasIndex(c => c.Name).IsUnique();
+
+            //modelBuilder.Entity<MedicineCategory>().HasIndex("MedicineId", "Name").IsUnique();
+
             //ORDENES
 
-        //modelBuilder.Entity<MedicalOrder>().HasIndex(x => x.order_id).IsUnique();
-        //MedicineImagne, cómo sería? 
-        //modelBuilder.Entity<Sale>().HasIndex(x => x.sale_id).IsUnique();
-        //modelBuilder.Entity<User>().HasIndex(x => x.user_name).IsUnique();
-        //modelBuilder.Entity<Role>().HasIndex(d => d.role_name).IsUnique();
-
-        
-
+            //modelBuilder.Entity<MedicalOrder>().HasIndex(x => x.order_id).IsUnique();
+            //MedicineImagne, cómo sería? 
+            //modelBuilder.Entity<Sale>().HasIndex(x => x.sale_id).IsUnique();
+            
         }
     }
 }
