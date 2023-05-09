@@ -1,4 +1,5 @@
-﻿using Drugstore.Shared.Entities.Usuario;
+﻿using Drugstore.Shared.DTOs;
+using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Identity;
 
 namespace Drugstore.API.Helpers
@@ -15,5 +16,11 @@ namespace Drugstore.API.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
+
+
     }
 }
