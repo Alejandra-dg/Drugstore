@@ -8,14 +8,14 @@ namespace Drugstore.WEB.Auth
     {
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            await Task.Delay(3000); // Tiempo de espera 
+            await Task.Delay(3000); // Tiempo de espera 3 segundos
             var anonimous = new ClaimsIdentity();
             var oapUser = new ClaimsIdentity (new List<Claim>
             {
             
-            new Claim("FirstName", "Luis"),
-            new Claim("LastName", "O"),
-            new Claim(ClaimTypes.Name, "juan@gmail.com"),
+            new Claim("FirstName", "Juan"),
+            new Claim("LastName", "Cartago"),
+            new Claim(ClaimTypes.Name, "juanCar@gmail.com"),
             new Claim(ClaimTypes.Role, "Admin")
         },
         authenticationType: "test");

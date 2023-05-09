@@ -18,7 +18,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTe
 
 
 // Depronto se tiene que cambios el local cambiar puerto del api 
-builder.Services.AddScoped(sp => new HttpClient
+builder.Services.AddSingleton(sp => new HttpClient
 {
     BaseAddress = new Uri("https://localhost:7094/")
 });
