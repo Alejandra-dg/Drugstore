@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Drugstore.API.Helpers
 {
-    // Consumidor de los usuarios
+    //Permite manilupar los usuarios
     public interface IUserHelper
     {
         Task<User> GetUserAsync(string email);

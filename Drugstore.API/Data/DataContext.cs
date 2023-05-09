@@ -3,12 +3,12 @@ using Drugstore.Shared.Entities.Medicamento;
 using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Drugstore.Shared.Entities;
-//using Drugstore.Shared.Entities.Venta;
+
 
 
 namespace Drugstore.API.Date
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -31,13 +31,8 @@ namespace Drugstore.API.Date
         //public DbSet<MedicalOrder> MedicalOrders { get; set; }
         //public DbSet<Sale> Sales { get; set; }
 
-
-
-
         //Usuario
         //public DbSet<User> Users { get; set; }
-        //public DbSet<Role> Roles { get; set; }
-        //public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,14 +40,6 @@ namespace Drugstore.API.Date
             modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
             modelBuilder.Entity<Medicine>().HasIndex(c => c.Name).IsUnique();
 
-            //modelBuilder.Entity<MedicineCategory>().HasIndex("MedicineId", "Name").IsUnique();
-
-            //ORDENES
-
-            //modelBuilder.Entity<MedicalOrder>().HasIndex(x => x.order_id).IsUnique();
-            //MedicineImagne, cómo sería? 
-            //modelBuilder.Entity<Sale>().HasIndex(x => x.sale_id).IsUnique();
-            
         }
     }
 }

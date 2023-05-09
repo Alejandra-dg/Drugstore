@@ -12,9 +12,10 @@ namespace Drugstore.WEB.Auth
             var anonimous = new ClaimsIdentity();
             var oapUser = new ClaimsIdentity (new List<Claim>
             {
+            
             new Claim("FirstName", "Luis"),
             new Claim("LastName", "O"),
-            new Claim(ClaimTypes.Name, "oap@yopmail.com"),
+            new Claim(ClaimTypes.Name, "juan@gmail.com"),
             new Claim(ClaimTypes.Role, "Admin")
         },
         authenticationType: "test");
