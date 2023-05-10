@@ -8,6 +8,8 @@ namespace Drugstore.Shared.Entities.Usuario
 {
     public class User : IdentityUser
     {
+
+
         [Display(Name = "Documento")]
         [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -43,10 +45,6 @@ namespace Drugstore.Shared.Entities.Usuario
         [Display(Name = "Usuario")]
         public string FullName => $"{FirstName} {LastName}";
 
-        //public City? City { get; set; }
-        //[Display(Name = "Ciudad")]
-        //[Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-        //public int CityId { get; set; }
     }
 }
 

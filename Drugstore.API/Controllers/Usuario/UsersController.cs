@@ -1,5 +1,4 @@
 ﻿//using Drugstore.API.Date;
-//using Drugstore.Shared.Entities;
 //using Drugstore.Shared.Entities.Usuario;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@
 //        }
 
 
-//        //Método GET LIST
+//        Método GET LIST
 
 //        [HttpGet]
 //        public async Task<ActionResult> Get()
@@ -29,7 +28,7 @@
 
 //        }
 
-//        //´Método GET con parámetro
+//        ´Método GET con parámetro
 
 //        [HttpGet("{id:int}")]
 //        public async Task<ActionResult> Get(int id)
@@ -48,8 +47,8 @@
 
 
 
-//        // Método POST -- CREAR
-//        [HttpPost]
+//        Método POST -- CREAR
+//       [HttpPost]
 //        public async Task<ActionResult> Post(User user)
 //        {
 //            _context.Add(user);
@@ -80,7 +79,7 @@
 
 
 
-//        //Método PUT --- UPDATE
+//        Método PUT --- UPDATE
 
 //        [HttpPut]
 //        public async Task<ActionResult> Put(User user)
@@ -92,8 +91,8 @@
 
 
 
-//        // Método DELETE-- Eliminar
-//        [HttpDelete("{id:int}")]
+//        Método DELETE-- Eliminar
+//       [HttpDelete("{id:int}")]
 //        public async Task<ActionResult> Delete(int id)
 //        {
 //            var afectedRows = await _context.Users

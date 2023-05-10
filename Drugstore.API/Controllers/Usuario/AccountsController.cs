@@ -2,10 +2,10 @@
 using Drugstore.Shared.DTOs;
 using Drugstore.Shared.Entities.Usuario;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.IdentityModel.Tokens;
-//using System.IdentityModel.Tokens.Jwt;
-//using System.Security.Claims;
-//using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Drugstore.API.Controllers.Usuario
 {
@@ -30,7 +30,7 @@ namespace Drugstore.API.Controllers.Usuario
             if (result.Succeeded)
             {
                 await _userHelper.AddUserToRoleAsync(user, user.UserType.ToString());
-                //return Ok(BuildToken(user));
+                return Ok(BuildToken(user));
             }
 
             return BadRequest(result.Errors.FirstOrDefault());
@@ -51,35 +51,35 @@ namespace Drugstore.API.Controllers.Usuario
         }
         //Token no creado, no lo necesitamos
 
-        //private TokenDTO BuildToken(User user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Name, user.Email!),
-        //        new Claim(ClaimTypes.Role, user.UserType.ToString()),
-        //        new Claim("Document", user.Document),
-        //        new Claim("FirstName", user.FirstName),
-        //        new Claim("LastName", user.LastName),
-        //        new Claim("Address", user.Address),
-        //        new Claim("Photo", user.Photo ?? string.Empty),
-        //        new Claim("CityId", user.CityId.ToString())
-        //    };
+        private TokenDTO BuildToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email!),
+                new Claim(ClaimTypes.Role, user.UserType.ToString()),
+                new Claim("Document", user.Document),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
+                new Claim("Address", user.Address),
+                new Claim("Photo", user.Photo ?? string.Empty),
+                
+            };
 
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwtKey"]!));
-        //    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        //    var expiration = DateTime.UtcNow.AddDays(30);
-        //    var token = new JwtSecurityToken(
-        //        issuer: null,
-        //        audience: null,
-        //        claims: claims,
-        //        expires: expiration,
-        //        signingCredentials: credentials);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwtKey"]!));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expiration = DateTime.UtcNow.AddDays(30);
+            var token = new JwtSecurityToken(
+                issuer: null,
+                audience: null,
+                claims: claims,
+                expires: expiration,
+                signingCredentials: credentials);
 
-        //    return new TokenDTO
-        //    {
-        //        Token = new JwtSecurityTokenHandler().WriteToken(token),
-        //        Expiration = expiration
-        //    };
-        //}
+            return new TokenDTO
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = expiration
+            };
+        }
     }
 }
