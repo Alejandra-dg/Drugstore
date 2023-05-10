@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 //using System.Security.Claims;
 //using System.Text;
 
-namespace StoresG8G8.API.Controllers
+namespace Drugstore.API.Controllers.Usuario
 {
     [ApiController]
     [Route("/api/accounts")]
