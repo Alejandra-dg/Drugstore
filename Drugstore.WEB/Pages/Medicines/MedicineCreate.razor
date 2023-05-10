@@ -1,0 +1,40 @@
+﻿@page "/medicines/create"
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using Drugstore.Shared.Entities.Medicamento;
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+
+<h3>Crear Medicamento</h3>
+
+
+<MedicineForm @ref="MedicineForm" Medicine="medicine" OnValidSubmit="Create"
+              ReturnAction="Return" />
+
+@code {
+    private Medicine medicine = new();
+    private MedicineForm? CategoryForm;
+
+    private async Task Create()
+    {
+        var httpResponse = await repository.Post("api/medicines", medicine);
+
+        if (httpResponse.Error)
+        {
+            var mensajeError = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            MedicineForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("medicines");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("medicines");
+    }
+}
+

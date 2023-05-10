@@ -1,17 +1,16 @@
-﻿@page "/categories"
-@using Drugstore.Shared.Entities.Medicamento;
+﻿@page "/medicines"
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 
-<h3>Categorias</h3>
+<h3>Medicines</h3>
 
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
     <div>
-        <a class="btn btn-primary" href="/categories/create">Nueva Categoria</a>
+        <a class="btn btn-primary" href="/medicines/create">Nueva Medicamento</a>
     </div>
     <div class="mx-2">
-        <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar categoria..." @bind-value="Filter" />
+        <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
     </div>
     <div>
         <button type="button" class="btn btn-outline-primary" @onclick="ApplyFilterAsync">Buscar</button>
@@ -25,32 +24,32 @@
             SelectedPage="SelectedPage" />
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/categories/create">Adicionar categoria</a>
+    <a class="btn btn-primary" href="/medicines/create">Adicionar medicines</a>
 </div>
 
-<GenericList MyList="categories">
+<GenericList MyList="medicines">
 
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Categoria</th>
+                    <th>Medicamento</th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (var category in categories!)
+                @foreach (var medicine in medicines!)
                 {
                     <tr>
                        
 
                         <td>
-                            @category.Name
+                            @medicine.Name
                         </td>
                         <td>
-                            <a href="/categories/edit/@category.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(category))><i class="oi oi-trash" />Borrar</button>
+                            <a href="/medicines/edit/@medicine.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(medicine))><i class="oi oi-trash" />Borrar</button>
                         </td>
                     </tr>
 
@@ -65,7 +64,7 @@
 
 
 @code {
-    public List<Category>? categories { get; set; }
+    public List<Medicine>? medicines { get; set; }
     private int currentPage = 1;
     private int totalPages;
 
@@ -100,31 +99,31 @@
 
         if (string.IsNullOrEmpty(Filter))
         {
-            url1 = $"api/categories?page={page}";
-            url2 = $"api/categories/totalPages";
+            url1 = $"api/medicines?page={page}";
+            url2 = $"api/medicines/totalPages";
         }
         else
         {
-            url1 = $"api/categories?page={page}&filter={Filter}";
-            url2 = $"api/categories/totalPages?filter={Filter}";
+            url1 = $"api/medicines?page={page}&filter={Filter}";
+            url2 = $"api/medicines/totalPages?filter={Filter}";
         }
 
 
 
-        var responseHppt = await repository.Get<List<Category>>(url1);
+        var responseHppt = await repository.Get<List<Medicine>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
-        categories = responseHppt.Response!;
+        medicines = responseHppt.Response!;
         totalPages = responseHppt2.Response!;
     }
 
     private async Task Load()
     {
-        var responseHppt = await repository.Get<List<Category>>("api/categories");
-        categories = responseHppt.Response!;
+        var responseHppt = await repository.Get<List<Medicine>>("api/categories");
+        medicines = responseHppt.Response!;
     }
 
 
-    private async Task Delete(Category category)
+    private async Task Delete(Medicine medicine)
     {
         var result = await swal.FireAsync(new SweetAlertOptions
             {
@@ -141,7 +140,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/categories/{category.Id}");
+        var responseHTTP = await repository.Delete($"api/categories/{medicine.Id}");
 
         if (responseHTTP.Error)
         {
