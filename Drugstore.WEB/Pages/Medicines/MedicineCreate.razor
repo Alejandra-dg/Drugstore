@@ -9,12 +9,12 @@
 <h3>Crear Medicamento</h3>
 
 
-<MedicineForm @ref="MedicineForm" Medicine="medicine" OnValidSubmit="Create"
+<MedicineForm @ref="medicineForm" Medicine="medicine" OnValidSubmit="Create"
               ReturnAction="Return" />
 
 @code {
     private Medicine medicine = new();
-    private MedicineForm? CategoryForm;
+    private MedicineForm? medicineForm;
 
     private async Task Create()
     {
@@ -27,7 +27,7 @@
         }
         else
         {
-            MedicineForm!.FormPostedSuccessfully = true;
+            medicineForm!.FormPostedSuccessfully = true;
             navigationManager.NavigateTo("medicines");
         }
     }
