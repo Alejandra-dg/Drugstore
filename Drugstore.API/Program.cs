@@ -2,8 +2,11 @@ using Drugstore.API.Data;
 using Drugstore.API.Date;
 using Drugstore.API.Helpers;
 using Drugstore.Shared.Entities.Usuario;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +41,17 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+       ValidateLifetime = true,
+       ValidateIssuerSigningKey = true,
+       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+        ClockSkew = TimeSpan.Zero
+    });
 
 
 

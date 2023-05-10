@@ -10,17 +10,19 @@ using Microsoft.AspNetCore.Components.Authorization;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7201/") });
+
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddSweetAlert2();
+//Autorización
 builder.Services.AddAuthorizationCore();
+// Clase autorazión 
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 
 
-// Depronto se tiene que cambios el local cambiar puerto del api 
+// Depronto se tiene que cambios el local cambiar puerto del api-- Esto se debe cambiar depende donde valla a correr el proyecto en el puerto 
 builder.Services.AddSingleton(sp => new HttpClient
 {
-    BaseAddress = new Uri("https://localhost:7094/")
+    BaseAddress = new Uri("https://localhost:7096/")
 });
 
 
