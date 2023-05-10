@@ -32,8 +32,8 @@ namespace Drusgstore.WEB.Repositories
 
         public async Task<HttpResponseWrapper<object>> Post<T>(string url, T model)
         {
-            var mesageJSON = JsonSerializer.Serialize(model);
-            var messageContet = new StringContent(mesageJSON, Encoding.UTF8, "application/json");
+            var messageJSON = JsonSerializer.Serialize(model);
+            var messageContet = new StringContent(messageJSON, Encoding.UTF8, "application/json");
             var responseHttp = await _httpClient.PostAsync(url, messageContet);
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }

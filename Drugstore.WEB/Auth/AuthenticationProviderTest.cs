@@ -10,12 +10,12 @@ namespace Drugstore.WEB.Auth
         {
             await Task.Delay(3000); // Tiempo de espera 3 segundos para comprobar la autorización 
             var anonimous = new ClaimsIdentity();
-            var oapUser = new ClaimsIdentity (new List<Claim>
+            var oapUser = new ClaimsIdentity(new List<Claim>
             {
             //Nombre que utilizaremos de autenticación 
             new Claim("FirstName", "Juan"),
             new Claim("LastName", "Cartago"),
-            new Claim(ClaimTypes.Name, "juanCartago@gmail.com"),
+            new Claim(ClaimTypes.Name, "JuanCartago@gmail.com"),
             new Claim(ClaimTypes.Role, "Admin")
         },
 

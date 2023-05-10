@@ -1,14 +1,16 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
 
 <PageTitle>Index</PageTitle>
 
-<AuthorizeView Roles="Admin">
-    <Authorized>
-        <p>Estás autenticado y autorizado @context.User.Identity?.Name</p>
-    </Authorized>
-    <NotAuthorized>
-        <p>No estás autorizado</p>
-    </NotAuthorized>
-
-</AuthorizeView>
+<CascadingAuthenticationState>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <p>Estás autenticado y autorizado @context.User.Identity?.Name</p>
+        </Authorized>
+        <NotAuthorized>
+            <p>No estás autorizado.</p>
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 
