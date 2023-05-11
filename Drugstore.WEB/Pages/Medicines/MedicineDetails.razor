@@ -1,0 +1,184 @@
+﻿@page "/medicines/details/{MedicineId:int}"
+@using Drugstore.Shared.Entities;
+@using System.Net;
+@using Drugstore.Shared.Entities.Medicamento;
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+@if ( medicine is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <h3>@medicine.Name</h3>
+    <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+        <div>
+            <a class="btn btn-primary" href="/categories/create/@medicine.Id">Nuevo Medicamento/Categoria</a>
+            <a class="btn btn-success" href="/medicines">Regresar</a>
+        </div>
+
+        <div class="mx-2">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar categoria..." @bind-value="Filter" />
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-primary" @onclick="ApplyFilterAsync">Buscar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+
+
+    </div>
+
+    <Pagination CurrentPage="currentPage"
+            TotalPages="totalPages"
+            SelectedPage="SelectedPage" />
+
+
+    <GenericList MyList="categories">
+        <Body>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Medicamento/Categoria</th>
+                        <th style="width:220px">Medicamentos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in categories!)
+                    {
+                        <tr>
+                            <td>
+                                @categories.Name
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="/category/details/@category.Id">Detalles</a>
+                                <a class="btn btn-warning" href="/states/edit/@category.Id">Editar</a>
+                                <button class="btn btn-danger" @onclick=@(() => DeleteAsync(category.Id))>Borrar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </Body>
+    </GenericList>
+}
+
+@code {
+    private Medicine? medicine;
+    public List<Category>? categories { get; set; }
+
+
+    private int currentPage = 1;
+    private int totalPages;
+
+    [Parameter]
+    public int MedicineId { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string Page { get; set; } = "";
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string Filter { get; set; } = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Load();
+    }
+    private async Task SelectedPage(int page)
+    {
+        currentPage = page;
+        await Load(page);
+    }
+
+    private async Task Load(int page = 1)
+    {
+        if (!string.IsNullOrWhiteSpace(Page))
+        {
+            page = Convert.ToInt32(Page);
+        }
+
+        string url1 = string.Empty;
+        string url2 = string.Empty;
+
+        if (string.IsNullOrEmpty(Filter))
+        {
+            url1 = $"api/categories?page={page}&MedicineId={MedicineId}";
+            url2 = $"api/categories/totalPages?MedicineId={MedicineId}";
+        }
+        else
+        {
+            url1 = $"api/categories?page={page}&filter={Filter}&MedicineId={MedicineId}";
+            url2 = $"api/categories/totalPages?filter={Filter}&MedicineId={MedicineId}";
+        }
+
+
+        var responseHppt = await repository.Get<List<Medicine>>(url1);
+        var responseHppt2 = await repository.Get<int>(url2);
+        var responseHttp3 = await repository.Get<Category>($"/api/countries/{MedicineId}");
+        if (responseHttp3.Error)
+        {
+            if (responseHttp3.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/countries");
+                return;
+            }
+
+            var message = await responseHttp3.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+        categories = responseHppt.Response!.ToList();
+        totalPages = responseHppt2.Response!;
+        medicine = responseHttp3.Response;
+
+    }
+
+    private async Task DeleteAsync(int id)
+    {
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Realmente deseas eliminar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+                CancelButtonText = "No",
+                ConfirmButtonText = "Si"
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHttp = await repository.Delete($"/api/medicine/{id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode != HttpStatusCode.NotFound)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return;
+            }
+        }
+
+        await Load();
+    }
+
+    private async Task CleanFilterAsync()
+    {
+        Filter = string.Empty;
+        await ApplyFilterAsync();
+    }
+
+    private async Task ApplyFilterAsync()
+    {
+        int page = 1;
+        await Load(page);
+        await SelectedPage(page);
+    }
+}
