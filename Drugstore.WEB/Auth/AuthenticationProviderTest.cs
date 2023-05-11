@@ -8,11 +8,11 @@ namespace Drugstore.WEB.Auth
     {
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-<<<<<<< Updated upstream
+
             await Task.Delay(1000); // Tiempo de espera 3 segundos para comprobar la autorización 
-=======
-            //await Task.Delay(3000); // Tiempo de espera 3 segundos para comprobar la autorización 
->>>>>>> Stashed changes
+
+            await Task.Delay(3000); // Tiempo de espera 3 segundos para comprobar la autorización 
+
             var anonimous = new ClaimsIdentity();
             var oapUser = new ClaimsIdentity(new List<Claim>
             {

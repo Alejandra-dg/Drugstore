@@ -119,7 +119,7 @@
 
     private async Task Load()
     {
-        var responseHppt = await repository.Get<List<Medicine>>("api/categories");
+        var responseHppt = await repository.Get<List<Medicine>>("api/medicines");
         medicines = responseHppt.Response!;
     }
 
@@ -141,7 +141,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/categories/{medicine.Id}");
+        var responseHTTP = await repository.Delete($"api/medicines/{medicine.Id}");
 
         if (responseHTTP.Error)
         {

@@ -52,8 +52,8 @@ else
                                 @medicine.Name
                             </td>
                             <td>
-                                <a class="btn btn-info" href="/medicine/details/@medicine.Id">Detalles</a>
-                                <a class="btn btn-warning" href="/states/edit/@medicine.Id">Editar</a>
+                                <a class="btn btn-info" href="/medicines/details/@medicine.Id">Detalles</a>
+                                <a class="btn btn-warning" href="/medicines/edit/@medicine.Id">Editar</a>
                                 <button class="btn btn-danger" @onclick=@(() => DeleteAsync(medicine.Id))>Borrar</button>
                             </td>
                         </tr>
@@ -118,12 +118,12 @@ else
 
         var responseHppt = await repository.Get<List<Medicine>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
-        var responseHttp3 = await repository.Get<Category>($"/api/countries/{CategoryId}");
+        var responseHttp3 = await repository.Get<Category>($"/api/categories/{CategoryId}");
         if (responseHttp3.Error)
         {
             if (responseHttp3.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("/countries");
+                navigationManager.NavigateTo("/categories");
                 return;
             }
 
@@ -155,7 +155,7 @@ else
             return;
         }
 
-        var responseHttp = await repository.Delete($"/api/medicine/{id}");
+        var responseHttp = await repository.Delete($"/api/medicines/{id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode != HttpStatusCode.NotFound)
