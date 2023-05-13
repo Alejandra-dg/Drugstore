@@ -1,14 +1,18 @@
 ﻿@page "/medicines"
 @using Drugstore.Shared.Entities.Medicamento;
-@inject IRepository repository
+@using Drugstore.WEB.Repositories;
+@using Drugstore.Shared.Entities;
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 
-<h3>Medicines</h3>
+
+@inject IRepository repository
+
+<h1>Medicamentos</h1>
 
 <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
     <div>
-        <a class="btn btn-primary" href="/medicines/create">Nueva Medicamento</a>
+        <a class="btn btn-primary" href="/medicines/create">Nuevo Medicamento</a>
     </div>
     <div class="mx-2">
         <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
@@ -24,50 +28,54 @@
             TotalPages="totalPages"
             SelectedPage="SelectedPage" />
 
+
 <div class="mb-3">
-    <a class="btn btn-primary" href="/medicines/create">Adicionar medicines</a>
+    <a class="btn btn-primary" href="/medicines/create">Nuevo Medicamento</a>
 </div>
 
-<GenericList MyList="medicines">
+<GenericList MyList="Medicines">
 
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th></th>
+              
                     <th>Medicamento</th>
-
+                    <th style="width:220px">Medicamentos</th>
+                    <th style="width:300px"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var medicine in medicines!)
+                @foreach (var medicine in Medicines!)
                 {
                     <tr>
-                       
-
+                        
                         <td>
                             @medicine.Name
                         </td>
-                        <td>
-                            <a href="/medicines/edit/@medicine.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
-                            <button class="btn btn-danger" @onclick=@(() => Delete(medicine))><i class="oi oi-trash" />Borrar</button>
-                        </td>
+                        <!--Aca se cambio el  orden del botón -->
+                            <td>
+                                <a href="/countries/details/@medicine.Id" class="btn btn-info">Detalles</a>
+                                <a href="/countries/edit/@medicine.Id" class="btn btn-warning">Editar</a>
+                                <button class="btn btn-danger" @onclick=@(() => Delete(medicine))>Borrar</button>
+
+                            </td>
                     </tr>
-
-
                 }
-            </tbody>
+                </tbody>
         </table>
 
     </Body>
 
 </GenericList>
 
-
 @code {
-    public List<Medicine>? medicines { get; set; }
+
+    public List<Medicine>? Medicines { get; set; }
+    // Codigo de paginación 
     private int currentPage = 1;
     private int totalPages;
+
 
     [Parameter]
     [SupplyParameterFromQuery]
@@ -76,6 +84,9 @@
     [Parameter]
     [SupplyParameterFromQuery]
     public string Filter { get; set; } = "";
+
+
+
 
     protected async override Task OnInitializedAsync()
     {
@@ -87,6 +98,7 @@
         currentPage = page;
         await Load(page);
     }
+
 
     private async Task Load(int page = 1) // inicio de la pagina
     {
@@ -113,14 +125,8 @@
 
         var responseHppt = await repository.Get<List<Medicine>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
-        medicines = responseHppt.Response!;
+        Medicines = responseHppt.Response!;
         totalPages = responseHppt2.Response!;
-    }
-
-    private async Task Load()
-    {
-        var responseHppt = await repository.Get<List<Medicine>>("api/medicines");
-        medicines = responseHppt.Response!;
     }
 
 
@@ -141,7 +147,7 @@
             return;
         }
 
-        var responseHTTP = await repository.Delete($"api/medicines/{medicine.Id}");
+        var responseHTTP = await repository.Delete($"api/countries/{medicine.Id}");
 
         if (responseHTTP.Error)
         {
@@ -160,16 +166,17 @@
             await Load();
         }
     }
-    private async Task CleanFilterAsync()
-    {
-        Filter = string.Empty;
-        await ApplyFilterAsync();
-    }
+        private async Task CleanFilterAsync()
+        {
+            Filter = string.Empty;
+            await ApplyFilterAsync();
+        }
 
-    private async Task ApplyFilterAsync()
-    {
-        int page = 1;
-        await Load(page);
-        await SelectedPage(page);
-    }
+        private async Task ApplyFilterAsync()
+        {
+            int page = 1;
+            await Load(page);
+            await SelectedPage(page);
+        }
+
 }
