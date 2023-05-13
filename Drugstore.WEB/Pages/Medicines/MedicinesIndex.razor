@@ -2,9 +2,12 @@
 @using Drugstore.Shared.Entities.Medicamento;
 @using Drugstore.WEB.Repositories;
 @using Drugstore.Shared.Entities;
+@using Microsoft.AspNetCore.Authorization;
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
 
+@*condición para que solo el admin vea esta sección*@
+@attribute [Authorize(Roles = "Admin")]
 
 @inject IRepository repository
 
@@ -30,7 +33,7 @@
 
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/medicines/create">Nuevo Medicamento</a>
+    <a class="btn btn-primary" href="/medicines/create">Adiccionar nuevo Medicamento</a>
 </div>
 
 <GenericList MyList="Medicines">
