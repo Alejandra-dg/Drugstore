@@ -7,6 +7,19 @@
 
     <main>
         <div class="top-row px-4" style=" background-color: #edf9f8; border-bottom: 1px solid #fdf3ee; height: 2.5rem; align-items: center">
+            <CascadingAuthenticationState>
+                    <AuthorizeView>
+                        <Authorized>
+                            <span>Hola, @context.User.Identity!.Name</span>
+                        <a href="Logout" class="nav-link btn btn-link" style="color: #009688" >Cerrar Sesión</a>
+                        </Authorized>
+                        <NotAuthorized>
+                        <a href="Register" class="nav-link btn btn-link" style="color: #009688">Registro</a>
+                        <a href="Login" class="nav-link btn btn-link" style="color: #009688">Iniciar Sesión</a>
+                        </NotAuthorized>
+                    </AuthorizeView>
+             </CascadingAuthenticationState>
+
             <a href="https://docs.microsoft.com/aspnet/" target="_blank" style="color: #009688">About</a>
         </div>
 

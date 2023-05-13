@@ -23,7 +23,7 @@ namespace Drugstore.API.Data
             Console.WriteLine("holi");
             await CheckRolesAsync();
 
-            await CheckUserAsync("123", "Juan", "Arman", "Juan@gmail.com", "300666666", "Calle 1", UserType.Admin);
+            await CheckUserAsync("123", "Juan", "Cartago", "JuanCartago@yopmailgmail.com", "300666666", "Calle 1", UserType.Admin);
         }
 
 

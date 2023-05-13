@@ -18,6 +18,12 @@ builder.Services.AddAuthorizationCore();
 // Clase autorazión 
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 
+//Injecciones de dependencia de autenticación real
+builder.Services.AddScoped<AuthenticationProviderJWT>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+
+
 
 // Depronto se tiene que cambios el local cambiar puerto del api-- Esto se debe cambiar depende donde valla a correr el proyecto en el puerto 
 builder.Services.AddSingleton(sp => new HttpClient

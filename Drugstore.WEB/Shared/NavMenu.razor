@@ -22,7 +22,7 @@
 <!--nuevo codigo de autencitación y restriccion de usuarios y ayuda a ocultar el menú-->
         <!--Aca se realizan esos cambios de ocultar-->
        <CascadingAuthenticationState>
-            <AuthorizeView Roles="Admin">
+            @*<AuthorizeView Roles="Admin">*@   @*comentario*@
                 <Authorized>
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="categories" style="font-size: 18px">
@@ -35,7 +35,7 @@
                         </NavLink>
                     </div>
                 </Authorized>
-            </AuthorizeView>
+         @*   </AuthorizeView>*@
         </CascadingAuthenticationState>
 
         <div class="nav-item px-3">
