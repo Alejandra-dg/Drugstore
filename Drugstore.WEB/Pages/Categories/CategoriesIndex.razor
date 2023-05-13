@@ -1,8 +1,13 @@
 ﻿@page "/categories"
 @using Drugstore.Shared.Entities.Medicamento;
+@using Microsoft.AspNetCore.Authorization;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService swal
+
+@*condición para que solo el admin vea esta sección*@
+@attribute [Authorize(Roles = "Admin")]
+
 
 <h3>Categorias</h3>
 
@@ -110,12 +115,21 @@
             url2 = $"api/categories/totalPages?filter={Filter}";
         }
 
+        try
+        {
 
 
         var responseHppt = await repository.Get<List<Category>>(url1);
         var responseHppt2 = await repository.Get<int>(url2);
         categories = responseHppt.Response!;
         totalPages = responseHppt2.Response!;
+
+        }
+        catch (Exception ex)
+        {
+            await swal.FireAsync("Error", ex.Message, SweetAlertIcon.Error);
+        }
+
     }
 
     private async Task Load()

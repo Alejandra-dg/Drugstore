@@ -44,12 +44,12 @@ namespace Drugstore.API.Controllers.Usuario
             if (result.Succeeded)
             {
                 var user = await _userHelper.GetUserAsync(model.Email);
-                //return Ok(BuildToken(user));
+                return Ok(BuildToken(user));
             }
 
             return BadRequest("Email o contraseña incorrectos.");
         }
-        //Token no creado, no lo necesitamos
+        
 
         private TokenDTO BuildToken(User user)
         {
