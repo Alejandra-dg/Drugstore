@@ -5,7 +5,6 @@ using Drugstore.Shared.Entities.Medicamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Drugstore.API.Controllers.Medicamento
 {
 
@@ -100,12 +99,23 @@ namespace Drugstore.API.Controllers.Medicamento
 
         // Método POST -- CREAR
         [HttpPost]
-        public async Task<ActionResult> Post(Medicine medicine)
+        public async Task<ActionResult> Post(Medicine medicine, string selectedCategories)
         {
+            if (medicine.Categories == null) { 
+                medicine.Categories = new HashSet<Category>();
+            }
+            int[] categoryIds = selectedCategories.Split(',').Select(int.Parse).ToArray();
+            foreach (var categoryId in categoryIds)
+            {
+                Category category = await _context.Categories.FindAsync(categoryId);
+                if (category != null)
+                {
+                    medicine.Categories.Add(category);
+                }
+            }
             _context.Add(medicine);
             try
             {
-
                 await _context.SaveChangesAsync();
                 return Ok(medicine);
             }

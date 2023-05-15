@@ -3,35 +3,101 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" style="display: flex;justify-content: center">
 
     <DataAnnotationsValidator />
-    <div class="mb-3">
-        <label>Medicamento:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Medicine.Name" />
-            <ValidationMessage For="@(() => Medicine.Name)" />
+  
+    <div class="card" style="width: 700px;">
+        <div class="card-header">
+            <span>
+                <i class="oi oi-check" /> Completa el formulario:
+            </span>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label>Nombre:</label>
+                        <div>
+                            <InputText class="form-control" @bind-Value="@Medicine.Name" />
+                             <ValidationMessage For="@(() => Medicine.Name)" />
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label>Descripción:</label>
+                        <div>
+                             <InputText class="form-control" @bind-Value="@Medicine.Description" />
+                             <ValidationMessage For="@(() => Medicine.Description)" />
+                        </div>
+                    </div>
+                    
+                    @if(CategoryId is null){
+                    
+                        <div class="mb-3">
+                            <label>Categoría:</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@CategoryIdValue" />
+                            </div>
+                        </div>
+                    } 
+
+                    <div class="mb-3">
+                        <label>Precio:</label>
+                        <div>
+                            <InputNumber class="form-control" @bind-Value="@Medicine.Price" />
+                            <ValidationMessage For="@(() => Medicine.Price)" />
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label>Stock:</label>
+                        <div>
+                             <InputNumber class="form-control" @bind-Value="@Medicine.Stock" />
+                             <ValidationMessage For="@(() => Medicine.Stock)" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;flex-direction: row; column-gap: 15px; align-items: center; justify-content: center;  padding: 10px">
+            <button class="btn btn-primary" type="submit" style="background-color: #1baec2;border-color: #1baec2;"> Guardar cambios</button>
+            <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
         </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
-    <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
+
 </EditForm>
+
+
+
 <!--Llave C#-->
 @code {
 
 
     private EditContext editContext = null!;
 
+    [EditorRequired]
+    [Parameter]
+    public string CategoryId { get; set; } = "";
+    public string CategoryIdValue { get; set; } = "";
+
     protected override void OnInitialized()
     {
         editContext = new(Medicine);
+        CategoryIdValue = CategoryId;
     }
 
 
     [EditorRequired]
     [Parameter]
     public Medicine Medicine { get; set; } = null!;
+
 
     // El boton hace el submit 
     [EditorRequired]

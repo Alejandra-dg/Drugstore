@@ -24,7 +24,6 @@ namespace Drugstore.API.Date
 
         public DbSet<MedicineImage> MedicineImages { get; set; }
 
-        public DbSet<User> Users { get; set; }
 
 
         //Venta
@@ -32,11 +31,13 @@ namespace Drugstore.API.Date
         //public DbSet<Sale> Sales { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
-            modelBuilder.Entity<Medicine>().HasIndex(c => c.Name).IsUnique();
+            //modelBuilder.Entity<Category>().HasIndex(c => c.Id).IsUnique();
+            //modelBuilder.Entity<Medicine>().HasIndex("CategoryId", "Name").IsUnique();
+
 
         }
     }

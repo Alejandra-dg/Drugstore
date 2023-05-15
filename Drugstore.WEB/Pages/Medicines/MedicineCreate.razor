@@ -1,17 +1,23 @@
-﻿@page "/medicines/create" 
+﻿@page "/medicines/create/{CategoryId?}"
 @using CurrieTechnologies.Razor.SweetAlert2;
 @using Drugstore.Shared.Entities.Medicamento;
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService sweetAlertService
 
-<h3>Crear Medicamento</h3>
+<h3 style="font-weight: bold;"><span class="oi oi-caret-right" style=" color: #FF9502"></span> Agregar medicamento</h3>
+
 
 <MedicineForm @ref="MedicineForm" Medicine="medicine" OnValidSubmit="Create"
-              ReturnAction="Return" />
+              ReturnAction="Return" CategoryId="@CategoryId" />
 
 @code {
     private Medicine medicine = new();
+
+    [Parameter]
+    public  string CategoryId { get; set; }  = null;
+
+
     private MedicineForm? MedicineForm;
 
     private async Task Create()

@@ -12,10 +12,10 @@ namespace Drugstore.Shared.Entities.Medicamento
         public string Name { get; set; } = null!;
 
 
-        public ICollection<MedicineCategory>? MedicineCategories { get; set; }
+        public ICollection<Medicine>? Medicine { get; set; }
 
         [Display(Name = "Medicamentos")]
-        public int MedicineCategoriesNumber => MedicineCategories == null ? 0 : MedicineCategories.Count;
+        public int MedicineCategoriesNumber => Medicine == null ? 0 : Medicine.Count;
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Drugstore.Shared.Entities.Medicamento
 {
@@ -31,12 +32,12 @@ namespace Drugstore.Shared.Entities.Medicamento
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public float Stock { get; set; }
 
-
-        public ICollection<MedicineCategory>? MedicineCategories { get; set; }
+        [JsonIgnore]
+        public ICollection<Category>? Categories { get; set; }
 
 
         [Display(Name = "Categorías")]
-        public int MedicinesCategoriesNumber => MedicineCategories  == null ? 0 : MedicineCategories.Count;
+        public int MedicinesCategoriesNumber => Categories == null ? 0 : Categories.Count;
 
 
         public ICollection<MedicineImage>? MedicineImages { get; set; }

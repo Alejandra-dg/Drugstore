@@ -12,10 +12,11 @@
 }
 else
 {
-    <h3>@category.Name</h3>
-    <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+    <h3 style="font-weight: bold;"><span class="oi oi-caret-right" style=" color: #FF9502"></span> Categoría: @category.Name</h3>
+    <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center; justify-content: flex-end; padding-right: 30px">
         <div>
-            <a class="btn btn-primary" href="/medicines/create/@category.Id">Nuevo Categoria/Medicamento</a>
+
+            <a class="btn btn-primary" href="/medicines/create/@category.Id" style="background-color: #FF9502; border-color: #FF9502"><i class="oi oi-plus"></i> Nuevo Medicamento</a>
             <a class="btn btn-success" href="/categories">Regresar</a>
         </div>
 
@@ -23,8 +24,10 @@ else
             <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
         </div>
         <div>
-            <button type="button" class="btn btn-outline-primary" @onclick="ApplyFilterAsync">Buscar</button>
-            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+            <button type="button" class="btn btn-outline-primary search-button" @onclick="ApplyFilterAsync" style=" color: #009688;border-color: #009688;">
+                <i class="oi oi-magnifying-glass" /> Buscar
+            </button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync"><i class="oi oi-ban" /> Limpiar</button>
         </div>
        
         
@@ -38,21 +41,16 @@ else
     <GenericList MyList="medicines">
         <Body>
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th> Categoria/Medicamento</th>
-                        <th style="width:220px">Categorias</th>
-                    </tr>
-                </thead>
+
                 <tbody>
                     @foreach (var medicine in medicines!)
                     {
                         <tr>
-                            <td>
+                            <td style="vertical-align: middle;">
                                 @medicine.Name
                             </td>
-                            <td>
-                                <a class="btn btn-info" href="/medicines/details/@medicine.Id">Detalles</a>
+                            <td style="text-align-last: end">
+                                <a class="btn btn-info" href="/medicines/details/@medicine.Id/@category.Id">Detalles</a>
                                 <a class="btn btn-warning" href="/medicines/edit/@medicine.Id">Editar</a>
                                 <button class="btn btn-danger" @onclick=@(() => DeleteAsync(medicine.Id))>Borrar</button>
                             </td>

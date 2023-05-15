@@ -1,6 +1,6 @@
 ﻿﻿@using Microsoft.AspNetCore.Components.Authorization
 
-<div class="top-row ps-3 navbar navbar-dark" style="height: 7.5rem; background-color:white; padding-left: inherit">
+<div class="top-row ps-3 navbar navbar-dark" style="height: 7.5rem; background-color:white; padding-left: inherit; border-bottom: 6px solid #FF9502">
     <div class="container-fluid" style="padding-left: 0; padding-right: 0">
         <a class="navbar-brand" style="font-size: 35px; color: #FF9502; font-weight: bolder; font-variant: unicase; margin: 0 " href="">MegaVital</a>
         <div aria-hidden="true" style="font-size: 16px; color: #0d746b; line-height: 1; width: 90%; text-align: center;">Salud total</div>
@@ -10,11 +10,11 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu" style=" background-image: linear-gradient(180deg, rgb(22 106 103) 0%, #adddd7 70%);">
-    <nav class="flex-column" style="padding-left: 25px">
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu" style=" background-image: linear-gradient(180deg, rgb(22 106 103) 0%, #adddd7 70%); outline-style: none">
+    <nav class="flex-column" style="padding-left: 20px"> 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="font-size: 18px">
-                <span class="oi oi-home" aria-hidden="true" style="color: #FF9502; font-size: 25px; margin-right: 16px"></span> Inicio
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="font-size: 18px; font-weight: bold;">
+                <span class="oi oi-home" aria-hidden="true" style="color: white; font-size: 25px; margin-right: 6px"></span> Inicio
             </NavLink>
         </div> 
 
@@ -25,13 +25,13 @@
             <AuthorizeView Roles="Admin">
                 <Authorized>
                     <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="categories" style="font-size: 18px">
-                            <span class="oi oi-chevron-right" aria-hidden="true" style="color: #FF9502; font-size: 25px; margin-right: 16px"></span> Categorias
+                        <NavLink class="nav-link" href="categories" style="font-size: 18px; font-weight: bold;">
+                            <span class="oi oi-chevron-right" aria-hidden="true" style="color: white; font-size: 25px; margin-right: 6px"></span> Categorías
                         </NavLink>
                     </div>
                     <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="medicines" style="font-size: 18px">
-                            <span class="oi oi-chevron-right" aria-hidden="true" style="color: #FF9502; font-size: 25px; margin-right: 16px"></span> Medicamentos
+                        <NavLink class="nav-link" href="medicines" style="font-size: 18px; font-weight: bold;">
+                            <span class="oi oi-chevron-right" aria-hidden="true" style="color: white; font-size: 25px; margin-right: 6px"></span> Medicamentos
                         </NavLink>
                     </div>
                 </Authorized>
@@ -39,8 +39,8 @@
         </CascadingAuthenticationState>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Acerca de" style="font-size: 18px">
-                <span class="oi oi-aperture" aria-hidden="true" style="color: #FF9502; font-size: 25px; margin-right: 16px"></span> Acerca de
+            <NavLink class="nav-link" href="Acerca de" style="font-size: 18px;  font-weight: bold;">
+                <span class="oi oi-aperture" aria-hidden="true" style="color: white; font-size: 25px; margin-right: 6px"></span> Acerca de
             </NavLink>
         </div>
 

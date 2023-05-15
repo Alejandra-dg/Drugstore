@@ -3,19 +3,41 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" style="display: flex;justify-content: center">
+
     <DataAnnotationsValidator />
-    <div class="mb-3">
-        <label>Categoria:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@Category.Name" />
-            <ValidationMessage For="@(() => Category.Name)" />
+
+    <div class="card" style="width: 700px;">
+        <div class="card-header">
+            <span>
+                <i class="oi oi-check" /> Completa el formulario:
+            </span>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                       <label>Nombre:</label>
+                        <div>
+                            <InputText class="form-control" @bind-Value="@Category.Name" />
+                            <ValidationMessage For="@(() => Category.Name)" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;flex-direction: row; column-gap: 15px; align-items: center; justify-content: center;  padding: 10px">
+            <button class="btn btn-primary" type="submit" style="background-color: #1baec2;border-color: #1baec2;"> Guardar cambios</button>
+            <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
         </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
-    <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
+
 </EditForm>
+
 
 @code {
     private EditContext editContext = null!; 

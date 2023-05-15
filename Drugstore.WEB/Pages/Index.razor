@@ -6,10 +6,31 @@
 <CascadingAuthenticationState>
     <AuthorizeView Roles="Admin">
         <Authorized>
-            <p>Estás autenticado y autorizado @context.User.Identity?.Name</p>
+            <p style ="font-weight: bold; ">Estás autenticado y autorizado @context.User.Identity?.Name</p>
         </Authorized>
         <NotAuthorized>
-            <p>No estás autorizado para ver este contenido.</p>
+            <p style="font-weight: bold; ">No estás autorizado para ver este contenido.</p>
+
+            <div class="card" style="width: 300px; border-color: orange;">
+                <div class="card-header">
+                    <span>
+                        <i class="oi oi-check" /> Debes iniciar sesión:
+                    </span>
+                </div>
+             <div class="card-body">
+
+                <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <div>
+                            <p style=" padding-left: 20px">Correo: juan@gmail.com </p>
+                            <p style =" padding-left: 20px">Contraseña: 123456</p>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </NotAuthorized>
     </AuthorizeView>
 </CascadingAuthenticationState>

@@ -1,4 +1,4 @@
-﻿@page "/medicines/details/{MedicineId:int}"
+﻿@page "/medicines/details/{MedicineId:int}/{CategoryId?}/"
 @using Drugstore.Shared.Entities;
 @using System.Net;
 @using Drugstore.Shared.Entities.Medicamento;
@@ -12,57 +12,33 @@
 }
 else
 {
-    <h3>@medicine.Name</h3>
-    <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
-        <div>
-            <a class="btn btn-primary" href="/states/create/@medicine.Id">Nuevo Medicamento</a>
-            <a class="btn btn-success" href="/countries">Regresar</a>
+
+
+    <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center; justify-content: space-between; margin-bottom: 0rem!important;">
+        <h3 style="font-weight: bold;"><span class="oi oi-caret-right" style=" color: #FF9502"></span>  Medicamento: </h3>
+        <div style="padding-right: 45px;">
+            @if (CategoryId is null)
+            {
+                <a class="btn btn-success" href="/medicines">Regresar</a>
+            }
+            else
+            {
+                <a class="btn btn-success" href="/categories/details/@CategoryId">Regresar</a>
+            }
+            
         </div>
 
-        <div class="mx-2">
-            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-primary" @onclick="ApplyFilterAsync">Buscar</button>
-            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
-        </div>
-       
-        
+    </div>
+    <div style="font-variant: unicase; font-size: 39px; border-bottom: 3px solid #FF9502; inline-size: max-content">
+        @medicine.Name
     </div>
 
-    <Pagination CurrentPage="currentPage"
-            TotalPages="totalPages"
-            SelectedPage="SelectedPage" />
+    <div style="padding: 12px">
+        En construcción...
+    </div>
 
 
-    <GenericList MyList="categories">
-        <Body>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th> Categoias / Medicamentos </th>
-                        <th style="width:220px">Medicamentos</th>
-                        <th style="width:300px">Estados / Departamentos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var category in categories!)
-                    {
-                        <tr>
-                            <td>
-                                @category.Name
-                            </td>
-                            <td>
-                                <a class="btn btn-info" href="/categories/details/@category.Id">Detalles</a>
-                                <a class="btn btn-warning" href="/categories/edit/@category.Id">Editar</a>
-                                <button class="btn btn-danger" @onclick=@(() => DeleteAsync(category.Id))>Borrar</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </Body>
-    </GenericList>
+
 }
 
 @code {
@@ -75,6 +51,9 @@ else
 
     [Parameter]
     public int MedicineId { get; set; }
+
+    [Parameter]
+    public string CategoryId { get; set; }
 
     [Parameter]
     [SupplyParameterFromQuery]

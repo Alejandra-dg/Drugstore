@@ -1,4 +1,4 @@
-﻿@page "/countries/edit/{Id:int}"
+﻿@page "/medicines/edit/{Id:int}"
 @using Drugstore.Shared.Entities.Medicamento;
 @inject NavigationManager navigationManager
 @inject IRepository repository
@@ -30,7 +30,7 @@ else
         {
             if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("countries");
+                navigationManager.NavigateTo("medicines");
             }
             else
             {
