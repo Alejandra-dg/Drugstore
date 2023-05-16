@@ -23,7 +23,7 @@
     private async Task Create()
     {
         // llama al repositorio y ejecuta el api 
-        var httpResponse = await repository.Post("/api/medicines", medicine);
+        var httpResponse = await repository.Post("/api/medicines?selectedCategories=" + MedicineForm.CategoryIdValue, medicine);
         if (httpResponse.Error)
         {
             var mensajeError = await httpResponse.GetErrorMessageAsync();
