@@ -2,6 +2,7 @@
 @using Drugstore.Shared.DTOs;
 @using Drugstore.Shared.Enums;
 @using Drugstore.WEB.Auth;
+@using Drugstore.WEB.Shared;
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
@@ -68,14 +69,15 @@
                 </div>
             </div>
         </div>
-
-            <div class="mb-3">
+             @*Este codigo comentado por si se necesita*@
+            @*<div class="mb-3">
                 <label>Foto:</label>
                 <div>
                     <InputText class="form-control" @bind-Value="@userDTO.Photo" />
                     <ValidationMessage For="@(() => userDTO.Photo)" />
                 </div>
-            </div>
+
+            </div>*@
             <div class="mb-3">
                 <label>Contraseña:</label>
                 <div>
@@ -90,16 +92,37 @@
                     <ValidationMessage For="@(() => userDTO.PasswordConfirm)" />
                 </div>
             </div>
+            
+           @* Creación de la foto*@
+            <div class="mb-3">
+                   <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+              </div>
         </div>
         </div>
     </div>
-
-
-    <button class="btn btn-primary" type="submit">Registrar</button>
+  
 </EditForm>
 
 @code {
     private UserDTO userDTO = new();
+    private string? @imageUrl;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await LoadCategoriesAsync();
+
+        if (!string.IsNullOrEmpty(userDTO.Photo))
+        {
+            imageUrl = userDTO.Photo;
+            userDTO.Photo = null;
+        }
+    }
+
+    private void ImageSelected(string imagenBase64)
+    {
+        userDTO.Photo = imagenBase64;
+        imageUrl = null;
+    }
 
     private async Task CreteUserAsync()
     {
@@ -115,6 +138,9 @@
 
         await loginService.LoginAsync(responseHttp.Response!.Token);
         navigationManager.NavigateTo("/");
+
     }
+
+
 }
 
