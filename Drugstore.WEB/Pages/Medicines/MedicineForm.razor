@@ -62,10 +62,11 @@
                         </div>
                     </div>
 
-                   @* <div class="mb-3">
-                        <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
-                    </div>
-*@
+                    <div class="mb-3">
+                           <div>
+                                <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                           </div>
+                     </div>
 
                 </div>
             </div>
@@ -86,25 +87,28 @@
 
 
     private EditContext editContext = null!;
-    //private MedicineCreateDTO MedicineCreateDTO = new();
-    //private string? @imageUrl;
+   
+    private string? @imageUrl;
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    //await LoadCategoriesAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        //await LoadCategoriesAsync();
 
-    //    if (!string.IsNullOrEmpty(MedicineCreateDTO.Photo))
-    //    {
-    //        imageUrl = MedicineCreateDTO.Photo;
-    //        MedicineCreateDTO.Photo = null;
-    //    }
-    //}
+        if (!string.IsNullOrEmpty(Medicine.Image))
+        {
+            imageUrl = Medicine.Image;
+            Medicine.Image = null;
+        }
+    }
 
-    //private void ImageSelected(string imagenBase64)
-    //{
-    //    MedicineCreateDTO.Photo = imagenBase64;
-    //    imageUrl = null;
-    //}
+    private void ImageSelected(string imagenBase64)
+    {
+        Medicine.Image = imagenBase64;
+        imageUrl = null;
+    }
+
+
+
 
     [EditorRequired]
     [Parameter]

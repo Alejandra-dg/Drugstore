@@ -17,7 +17,7 @@
         <a class="btn btn-primary" href="/categories/create" style="background-color: #FF9502; border-color: #FF9502" <i class="oi oi-plus"></i> Nueva Categoría</a>
     </div>
     <div class="mx-2">
-        <input style="width: 500px;" type="text" class="form-control" id="titulo" placeholder="Buscar categoria..." @bind-value="Filter" />
+        <input style="width: 500px;" type="text" class="form-control" id="titulo" placeholder="Buscar categoría..." @bind-value="Filter" />
     </div>
     <div>
         <button type="button" class="btn btn-outline-primary search-button" @onclick="ApplyFilterAsync" style=" color: #009688;border-color: #009688;">
@@ -54,9 +54,9 @@ else
                                 @category.Name
                             </td>
                             <td style="text-align-last: end; padding-right: 12px">
-                                <a href="/categories/details/@category.Id" class="btn btn-info"><i class="oi oi-list" /> Detalles</a>
-                                <a href="/categories/edit/@category.Id" class="btn btn-warning"><i class="oi oi-pencil" />Editar</a>
-                                <button class="btn btn-danger" @onclick=@(() => Delete(category))><i class="oi oi-trash" />Borrar</button>
+                                <a href="/categories/details/@category.Id" class="btn btn-info"><i class="oi oi-list" style="color: white" />  Detalles</a>
+                                <a href="/categories/edit/@category.Id" class="btn btn-warning"><i class="oi oi-pencil"style="color: white" /> Editar</a>
+                                <button class="btn btn-danger" @onclick=@(() => Delete(category))><i class="oi oi-trash"  /> Borrar</button>
                             </td>
                         </tr>
 

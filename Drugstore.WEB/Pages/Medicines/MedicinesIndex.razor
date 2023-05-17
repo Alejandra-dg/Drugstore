@@ -18,7 +18,7 @@
         <a class="btn btn-primary" href="/medicines/create" style="background-color: #FF9502; border-color: #FF9502" <i class="oi oi-plus"></i> Nuevo Medicamento</a>
     </div>
     <div class="mx-2">
-        <input style="width: 500px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
+        <input style="width: 460px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
     </div>
     <div>
         <button type="button" class="btn btn-outline-primary search-button" @onclick="ApplyFilterAsync" style=" color: #009688;border-color: #009688;">
@@ -32,7 +32,12 @@
             TotalPages="totalPages"
             SelectedPage="SelectedPage" />
 
-
+@if (Medicines is null)
+{
+    <div class="spinner" />
+}
+else
+{
 <GenericList MyList="Medicines">
 
     <Body>
@@ -60,7 +65,7 @@
     </Body>
 
 </GenericList>
-
+}
 @code {
 
     public List<Medicine>? Medicines { get; set; }

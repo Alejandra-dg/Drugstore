@@ -26,6 +26,10 @@ namespace Drugstore.Shared.Entities.Medicamento
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public decimal Price { get; set; }
 
+        [Display(Name = "Imagen")]
+        public string Image { get; set; } = null!;
+
+
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Inventario")]

@@ -21,7 +21,7 @@ else
         </div>
 
         <div class="mx-2">
-            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
+            <input style="width: 360px;" type="text" class="form-control" id="titulo" placeholder="Buscar medicamento..." @bind-value="Filter" />
         </div>
         <div>
             <button type="button" class="btn btn-outline-primary search-button" @onclick="ApplyFilterAsync" style=" color: #009688;border-color: #009688;">
@@ -41,11 +41,8 @@ else
     <GenericList MyList="medicines">
         <Body>
             <table class="table table-striped">
-                <thead>
-    
-                        <th>Medicamento</th>
-    
-                </thead>
+                
+                <span style="font-weight: bold; font-size: 20px; color: darkcyan">Medicamento</span>
 
                 <tbody>
                     @foreach (var medicine in medicines!)

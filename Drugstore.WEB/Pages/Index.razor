@@ -6,10 +6,13 @@
 <CascadingAuthenticationState>
     <AuthorizeView Roles="Admin">
         <Authorized>
-            <p style ="font-weight: bold; ">Estás autenticado y autorizado @context.User.Identity?.Name</p>
+            
+            <p style="font-weight: bold;"><span class="oi oi-check" style=" color: #FF9502"></span>  Estás autenticado y autorizado @context.User.Identity?.Name</p>
+
         </Authorized>
         <NotAuthorized>
-            <p style="font-weight: bold; ">No estás autorizado para ver este contenido.</p>
+            <p style="font-weight: bold;"><span class="oi oi-x" style=" color: #FF9502"></span>    No estás autorizado para ver este contenido.</p>
+            <p style="font-weight: bold; "></p>
 
             <div class="card" style="width: 300px; border-color: orange;">
                 <div class="card-header">
