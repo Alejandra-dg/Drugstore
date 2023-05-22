@@ -11,12 +11,18 @@
                     <AuthorizeView>
                         <Authorized>
                         <span style="color: #FF9502"> Hola, @context.User.Identity!.Name </span>
-                       
-                        <a href="Logout" class="nav-link btn btn-link" style="color: #009688" >Cerrar Sesión</a>
+                        <div>
+                            <a href="Logout" class="btn btn-primary" style="background-color: #FF9470; border-color: #FF9470; color:#3C0000 " <i class="oi oi-account-logout"></i> Cerrar Sesión </a>
+                        </div>
                         </Authorized>
                         <NotAuthorized>
-                        <a href="Register" class="nav-link btn btn-link" style="color: #009688">Registro</a>
-                        <a href="Login" class="nav-link btn btn-link" style="color: #009688">Iniciar Sesión</a>
+                        
+                        <div>  
+                            <a href="Register" class="btn btn-primary" style="background-color: #9AFA6E; border-color: #9AFA6E; color: #099443 " <i class="oi oi-person"></i> Registro </a>
+                        </div>
+                        <div>
+                            <a href="Login" class="btn btn-primary" style="background-color: #46E5F5; border-color: #46E5F5; color: #237178" <i class="oi oi-account-login"></i> Iniciar Sesión </a>
+                        </div>
                         </NotAuthorized>
                     </AuthorizeView>
              </CascadingAuthenticationState>
