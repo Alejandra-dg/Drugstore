@@ -83,7 +83,7 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IFileStorage, FileStorage>(); // inyectamos IFileStorage
+builder.Services.AddScoped<IFileStorage, FileStorage>(); // inyectamos IFileStorage Azure
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 

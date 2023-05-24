@@ -2,6 +2,7 @@
 {
     public interface IFileStorage
     {
+        //Sincronización y extención 
         Task<string> SaveFileAsync(byte[] content, string extention, string containerName);
 
         Task RemoveFileAsync(string path, string nombreContenedor);
