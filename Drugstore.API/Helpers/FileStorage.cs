@@ -4,7 +4,7 @@ using Drugstore.API.Helpers;
 
 namespace Drugstore.API.Helpers
 {
-    public class FileStorage : IFileStorage
+    public class FileStorage : IFileStorage //Implementación de la que hereda 
     {
         private readonly string connectionString;
         public FileStorage(IConfiguration configuration)

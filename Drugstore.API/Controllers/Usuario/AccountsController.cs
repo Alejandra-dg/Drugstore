@@ -17,6 +17,7 @@ namespace Drugstore.API.Controllers.Usuario
         private readonly IConfiguration _configuration;
         private readonly IFileStorage _fileStorage;
         private readonly string _container;
+        //private readonly IMailHelper _mailHelper;
 
 
         public AccountsController(IUserHelper userHelper, IConfiguration configuration, IFileStorage fileStorage)
