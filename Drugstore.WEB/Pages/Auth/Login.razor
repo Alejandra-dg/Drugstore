@@ -15,20 +15,31 @@
     <div class="row" style=" justify-content: center;">
         <div class="col-4" style="width: 50%;">
             <div class="mb-3">
-                <label>Email:</label>
+                <label<i class="oi oi-person"></i> Email:</label>
                 <div>
-                    <InputText class="form-control" @bind-Value="@loginDTO.Email" />
+                    <InputText class="form-control" @bind-Value="@loginDTO.Email"/>
                     <ValidationMessage For="@(() => loginDTO.Email)" />
                 </div>
             </div>
             <div class="mb-3">
-                <label>Contraseña:</label>
+                <label <i class="oi oi-key"></i> Contraseña:</label>
                 <div>
                     <InputText type="password" class="form-control" @bind-Value="@loginDTO.Password" />
                     <ValidationMessage For="@(() => loginDTO.Password)" />
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+            <div class="card-footer">
+            <div>
+                <a class="bbtn btn-link" href="/ResendToken" Style="color: #1F78FA" >Reenviar correro de activación de cuenta</a>
+            </div>
+                <p><a class="bbtn btn-link" href="/RecoverPassword" Style="color: #1F78FA">¿Has olvidado tu contraseña?</a></p>
+               
+            </div>
+            <br />
+            <div>
+                <button class="btn btn-primary" type="submit" style=" color: #031D38; border-color: #46E5F5; background-color:  #46E5F5">Iniciar Sesión</button>
+            </div>
+            
         </div>
     </div>
 </EditForm>

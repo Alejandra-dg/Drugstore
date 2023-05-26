@@ -47,4 +47,3 @@ namespace Drugstore.Shared.Entities.Usuario
 
     }
 }
-

@@ -4,7 +4,7 @@ using Drugstore.API.Helpers;
 
 namespace Drugstore.API.Helpers
 {
-    public class FileStorage : IFileStorage //Implementación de la que hereda 
+    public class FileStorage : IFileStorage
     {
         private readonly string connectionString;
         public FileStorage(IConfiguration configuration)
@@ -37,5 +37,5 @@ namespace Drugstore.API.Helpers
             return blob.Uri.ToString();
         }
     }
-}
 
+}

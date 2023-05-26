@@ -22,12 +22,12 @@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="font-size: 18px; font-weight: bold;">
                 <span class="oi oi-home" aria-hidden="true" style="color: white; font-size: 25px; margin-right: 6px"></span> Inicio
             </NavLink>
-        </div> 
+        </div>
 
 
-<!--nuevo codigo de autencitación y restriccion de usuarios y ayuda a ocultar el menú-->
+        <!--nuevo codigo de autencitación y restriccion de usuarios y ayuda a ocultar el menú-->
         <!--Aca se realizan esos cambios de ocultar-->
-       <CascadingAuthenticationState>
+        <CascadingAuthenticationState>
             <AuthorizeView Roles="Admin">
                 <Authorized>
                     <div class="nav-item px-3">
@@ -41,7 +41,7 @@
                         </NavLink>
                     </div>
                 </Authorized>
-           </AuthorizeView>
+            </AuthorizeView>
         </CascadingAuthenticationState>
 
         <div class="nav-item px-3">
@@ -56,7 +56,7 @@
 @code {
     private bool collapseNavMenu = true;
 
-    
+
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

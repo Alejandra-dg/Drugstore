@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = @"JWT Authorization header using the Bearer scheme. <br /> <br />
                       Enter 'Bearer' [space] and then your token in the text input below.<br /> <br />
                       Example: 'Bearer 123456'<br /> <br />",
-       
+
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -66,19 +66,23 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name = DefaultCo
 
 builder.Services.AddTransient<SeedDb>();
 
-// Esto solo se utiliza en caso de una api externa 
-//builder.Services.AddScoped<IApiService, ApiService>();
-
+builder.Services.AddScoped<IMailHelper, MailHelper>();
 
 //Info de usuarios y roles
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
+    x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+    x.SignIn.RequireConfirmedEmail = true;
     x.User.RequireUniqueEmail = true;
     x.Password.RequireDigit = false;
     x.Password.RequiredUniqueChars = 0;
     x.Password.RequireLowercase = false;
     x.Password.RequireNonAlphanumeric = false;
     x.Password.RequireUppercase = false;
+    x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    x.Lockout.MaxFailedAccessAttempts = 3;
+    x.Lockout.AllowedForNewUsers = true;
+
 })
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
@@ -87,16 +91,16 @@ builder.Services.AddScoped<IFileStorage, FileStorage>(); // inyectamos IFileStor
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
-    {
-       ValidateIssuer = false,
-       ValidateAudience = false,
-       ValidateLifetime = true,
-       ValidateIssuerSigningKey = true,
-       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
-       ClockSkew = TimeSpan.Zero
-    });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+{
+    ValidateIssuer = false,
+    ValidateAudience = false,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+    ClockSkew = TimeSpan.Zero
+});
 
 
 
@@ -108,7 +112,7 @@ SeedData(app);
 void SeedData(WebApplication app)
 {
     IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
- 
+
     using (IServiceScope? scope = scopedFactory!.CreateScope())
     {
         SeedDb? service = scope.ServiceProvider.GetService<SeedDb>();
